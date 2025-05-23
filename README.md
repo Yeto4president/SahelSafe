@@ -55,16 +55,36 @@ SMOTE is used to address the class imbalance in the dataset, as weeks without at
 - burkina_attacks_map.html: Map of historical attack locations.
 - burkina_attacks_timeseries.html: Time series graph of attack trends.
 
+## How to Launch the Analysis
+Prepare the Environment:
+- Ensure all dependencies are installed (see Installation section).
+- Download the raw ACLED data for Burkina Faso (2015-2025) from https://acleddata.com/data-export-tool/ and save it as acled_burkina_2015_2025.csv in the root directory.
+- Run Data Cleaning:
+- Execute the cleaning script to process the raw data:
+``` bash
+python clean_acled_data.py
+```
+This generates acled_burkina_cleaned.csv, acled_burkina_aggregated.csv, burkina_attacks_map.html, and burkina_attacks_timeseries.html.
+## Run Model Training:
+Execute the modeling script to train the model and generate predictions:
+``` bash
+python model_training.py
+```
+This produces xgb_model.pkl, burkina_risk_map.html, and burkina_predicted_proba.html, along with evaluation metrics in the console.
+### Explore Results:
+- Open the .html files in a web browser to view the visualizations.
+- Check the console output from model_training.py for performance metrics (e.g., AUC-ROC, precision).
+
+
 ##  Results
 View the risk map: burkina_risk_map.html
 ![image](https://github.com/user-attachments/assets/83a69441-568c-40d0-a093-163a51b2b3c8)
 Check evaluation metrics in the console after running model_training.py.
 ![image](https://github.com/user-attachments/assets/6226b7ae-5786-4251-9323-83cbe2c4b4c1)
 
-## Usage
-- Run clean_acled_data.py to process the raw ACLED data and generate cleaned files.
-- Run model_training.py to train the model, evaluate performance, and create predictive visualizations.
-- Open the .html files in a browser to explore the results.
+Explanation of Predicted Probabilities Graph (2024-2025)
+
+The "Probabilities predicted by region (2024-2025)" graph visualizes the XGBoost model's predicted likelihood of terrorist attacks across Burkina Faso's regions over weekly intervals. The x-axis shows weeks (1-50), the y-axis shows probabilities (0-1), and each colored line represents a region (e.g., Sahel, Est). Peaks (e.g., ~0.9 for Sahel around week 15) indicate high-risk periods, reflecting historical trends and features like is_rainy_season. This aids in identifying priority areas for intervention, though accuracy depends on data quality and unforeseen events.
 ## Contributing
 Contributions are welcome! Feel free to fork this repository, submit issues, or propose enhancements (e.g., adding climate data or improving the model). Let’s work together to make this project more impactful.
 
